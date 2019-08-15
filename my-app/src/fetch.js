@@ -61,33 +61,25 @@ export function MainList(props){
         }}));
 
         setIsMainPage(false)
-        // setCurrentImage(index);
-        // setViewerIsOpen(true);
       }, []);
-    // headers.append('Access-Control-Allow-Origin', 'http://localhost:8888');
     const goback = ()=>{
         setIsMainPage(true)
     }
-    useEffect(async () => {
-        let result = await makePromis(staticUrl)
-        result = result.filter((item, index, array)=>{
-                return item.type === "directory"
-            })
-        setMainPhotos(result.map((e)=>{return {
-            src: staticUrl + '/' + encodeURIComponent(e.name) + '/1.jpg',
-            width: 3,
-            height: 4,
-            key: e.name
-        }}));
-        // ok()
-      }, []);
-    // try{
-    //     const jsonResult = await makePromis(staticUrl)
-    //     console.log(jsonResult)
-    // }
-    // catch(err){
-    //     console.log(err)
-    // }
+    useEffect(()=>{
+        async function getMainPhoto(){
+            let result = await makePromis(staticUrl)
+            result = result.filter((item, index, array)=>{
+                    return item.type === "directory"
+                })
+            setMainPhotos(result.map((e)=>{return {
+                src: staticUrl + '/' + encodeURIComponent(e.name) + '/1.jpg',
+                width: 3,
+                height: 4,
+                key: e.name,
+            }}))
+        }
+        getMainPhoto()
+      }, [isMainPage]);
 
     return <div>
         {isMainPage?null:<button onClick={goback}>Go Back!!</button>}
