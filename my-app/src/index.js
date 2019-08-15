@@ -1,122 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import React, { useState } from 'react';
 
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
+// import { photos } from "./photos";
+// import ReactFileReader from 'react-file-reader';
+import {MainList} from './fetch.js';
+// import {Gallerybundle} from './gallery.js'
+// import Files from 'react-files'
 
-function Square(props){
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
+// const photos = [
+//   {
+//     src: 'http://localhost:8888/test/1.jpg',
+//     width: 3,
+//     height: 4
+//   },
+//   {
+//     src: 'http://localhost:8888/test/2.jpg',
+//     width: 3,
+//     height: 4
+//   },
+//   {
+//     src: 'http://localhost:8888/test/3.jpg',
+//     width: 3,
+//     height: 4
+//   },
+//   {
+//     src: 'http://localhost:8888/test/4.jpg',
+//     width: 3,
+//     height: 4
+//   },
+//   {
+//     src: 'http://localhost:8888/test/5.jpg',
+//     width: 3,
+//     height: 4
+//   },
+//   {
+//     src: 'http://localhost:8888/test/6.jpg',
+//     width: 3,
+//     height: 4
+//   },
+// ];
+
+
+
+function App(props){
+  return(
+    <div>
+      
+      <MainList/>
+    </div>
   )
 }
-function Board(props){
-
-  const renderSquare = (i) => {
-    return <Square value={props.squares[i]}
-            onClick={() => props.onClick(i)}/>
-  }  
-  return (
-    <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  );
-}
-  
-function Game(props) {
-
-  const [history, setHistory] = useState([{squares: Array(9).fill(null),}])
-  const [xIsNext, setxIsNext] = useState(true)
-  const [stepNumber, setstepNumber] = useState(0)
-
-  const handleClick = (i) => {
-    const new_history = history.slice(0, stepNumber + 1)
-    const current = new_history[new_history.length - 1]
-    const squares = current.squares.slice()
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = xIsNext ? 'X' : 'O';
-    setHistory(new_history.concat([{squares: squares}]))
-    setstepNumber(new_history.length)
-    setxIsNext(!xIsNext)
-  }
-  const jumpTo = (step) => {
-    setstepNumber(step)
-    setxIsNext((step % 2) === 0)
-  }
-  // const history = this.state.history;
-  const current = history[stepNumber];
-  const winner = calculateWinner(current.squares);
-
-  const moves = history.map((step, move)=>{
-    const desc = move ? 'Go to move #' + move :'Go to game start';
-    return(
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
-      </li>
-    )
-  })
-  
-  let status;
-  if (winner) {
-    status = 'Winner: ' + winner;
-  } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-  }
-
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board squares={current.squares}
-                onClick={(i)=>handleClick(i)}/>
-      </div>
-      <div className="game-info">
-        <div>{status}</div>
-        <ol>{moves}</ol>
-      </div>
-    </div>
-  );
-}
-  
-  // ========================================
-  
 ReactDOM.render(
-  <Game />,
+  <App />,
   document.getElementById('root')
 );
-  
