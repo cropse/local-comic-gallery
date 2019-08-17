@@ -30,9 +30,6 @@ services:
       - 9229:9229
     # Overrides default command so things don't shut down after the process ends.
     
-    # command: npm run start --debug
-    # workdir: /workspaces/my-app
-    # command: sleep infinity 
     command: [ "npm", "run", "start", "--debug" ]
   nginx:
     image: nginx
