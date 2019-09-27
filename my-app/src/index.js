@@ -5,16 +5,15 @@ import './index.css';
 // import { photos } from "./photos";
 // import ReactFileReader from 'react-file-reader';
 import {MainList} from './page.js';
+import { Provider } from 'react-redux'
+import App from './components/App'
+import configureStore from './configureStore'
 
-function App(props){
-  return(
-    <div>
-      
-      <MainList/>
-    </div>
-  )
-}
+const store = configureStore()
+
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
