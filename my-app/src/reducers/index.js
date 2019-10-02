@@ -35,9 +35,17 @@ const mainPhotos = (state = {
       }
     }
 
+const isMainPage = (state = true, action) =>{
+  switch (action.type){
+    
+    default:
+      return state
+  }
+
+}
 export default combineReducers({
     mainPhotos,
     // photos,
-    // isMainPage,
+    isMainPage,
     // selectIndex,
 })
