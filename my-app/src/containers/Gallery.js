@@ -1,23 +1,17 @@
 import { connect } from 'react-redux'
 import Photos from '../components/Photos'
-import { setMainPhotos } from '../actions'
 
-
-  
 const mapStateToProps = (state) => {
-    const {mainPhotos} = state
-    return {
-        mainPhotos: mainPhotos
-    }
+  const { mainPhotos, isMainPage, photos } = state
+  return {
+    photos,
+    mainPhotos,
+    isMainPage
   }
-  
-  const mapDispatchToProps = (dispatch) => {
-    dispatch(setMainPhotos())
-  }
+}
 
 const Gallery = connect(
-    mapStateToProps,
-    // mapDispatchToProps
-  )(Photos)
+  mapStateToProps,
+)(Photos)
 
 export default Gallery
