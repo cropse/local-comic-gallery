@@ -19,5 +19,5 @@ open \
 - [ ] backend
 - [ ] crawler
 - [ ] main page
-- [*] redux
+- [x] redux
 - [ ] arrow control
