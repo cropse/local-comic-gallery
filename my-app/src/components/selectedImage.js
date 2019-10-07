@@ -22,9 +22,11 @@ const SelectedImage = ({
   direction,
   top,
   left,
-  selected,
-  key
+  selected
 }) => {
+  // ! key not unique error
+  // ! render twice in beginning.
+
   const [isSelected, setIsSelected] = useState(selected);
   //calculate x,y scale
   const sx = (100 - (30 / photo.width) * 100) / 100;
@@ -44,7 +46,6 @@ const SelectedImage = ({
   useEffect(() => {
     setIsSelected(isSelected);
   }, [isSelected]);
-
   return (
     <div
       style={{ margin, height: photo.height, width: photo.width, ...cont }}
@@ -57,7 +58,7 @@ const SelectedImage = ({
         }
         {...photo}
         onClick={onClick ? handleClick : null}
-        key={key}
+        key={photo.key}
       />
       <style>{`.not-selected:hover{outline:2px solid #06befa}`}</style>
     </div>

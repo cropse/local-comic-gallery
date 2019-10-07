@@ -7,10 +7,15 @@ import { fetchMainPhotosIfNeeded, setMainPage, fetchPhotos } from '../actions'
 export function Photos(props) {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
-  useEffect(() => {
-    dispatch(fetchMainPhotosIfNeeded())
-  }, []);
   const { dispatch, mainPhotos, isMainPage, photos } = props
+
+  const initFetch = useCallback(() => {
+    dispatch(fetchMainPhotosIfNeeded());
+  }, [dispatch]);
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
 
   function onClick(event, { photo, index }) {
     dispatch(fetchPhotos(photo.key))
@@ -29,13 +34,13 @@ export function Photos(props) {
         top={top}
       />
     ),
-    []
+    [currentImage, props]
   );
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
     setViewerIsOpen(true);
-  }, [viewerIsOpen]);
+  }, []);
 
   const closeLightbox = () => {
     setCurrentImage(0);
