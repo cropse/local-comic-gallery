@@ -24,6 +24,7 @@ export function Photos(props) {
   const Photo = useCallback(
     ({ index, left, top, photo, onClick }) => (
       <SelectedImage
+        key={photo.key}
         props={props}
         onClick={onClick}
         selected={currentImage === index ? true : false}

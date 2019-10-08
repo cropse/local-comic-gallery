@@ -13,7 +13,6 @@ const cont = {
   overflow: "hidden",
   position: "relative"
 };
-
 const SelectedImage = ({
   index,
   onClick,
@@ -24,8 +23,6 @@ const SelectedImage = ({
   left,
   selected
 }) => {
-  // ! key not unique error
-  // ! render twice in beginning.
 
   const [isSelected, setIsSelected] = useState(selected);
   //calculate x,y scale
@@ -58,7 +55,6 @@ const SelectedImage = ({
         }
         {...photo}
         onClick={onClick ? handleClick : null}
-        key={photo.key}
       />
       <style>{`.not-selected:hover{outline:2px solid #06befa}`}</style>
     </div>
